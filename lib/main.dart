@@ -19,12 +19,36 @@ class MeuApp extends StatelessWidget {
             // 2. Scaffold: é a estrutura básica de tela (cabeçalho, corpo, etc.) 
             home: Scaffold(
                 appBar: AppBar(
-                    title: Text("Meu primeiro Scaffold"),
-                    backgroundColor: Colors.blue,
+                    title: Text("Layouts essenciais"),
+                    backgroundColor: Colors.teal,
                 ),
-                body: Center(
-                    child: Text("Olá, árvore de widgets"),
-                ),
+                body: Column( // Começando a coluna principal
+                    // Alinha os itens na vertical (Main Axis)
+                    mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                    // Alinha os itens na horizontal (Cross Axis)
+                    crossAxisAlignment: CrossAxisAlignment.center,
+                    children: <Widget>[ // A lista de Widgets filhos
+                        const Text("Primeiro Item (Column)"),
+
+                        // Row aninhada (Layout horizontal)
+                        Row(
+                            mainAxisAlignment: MainAxisAlignment.spaceAround,
+                            children: const <Widget>[
+                                Icon(Icons.thumb_up, color: Colors.blue, size: 40,),
+                                Icon(Icons.star, color: Colors.amber, size: 40,),
+                                Icon(Icons.favorite, color: Colors.red, size: 40,),
+                            ],
+                        ),
+
+                        Container(
+                            height: 100,
+                            width: 100,
+                            color: Colors.purple,
+                            alignment: Alignment.center,
+                            child: const Text("Container!", style: TextStyle(color: Colors.white),),
+                        )
+                    ],
+                )
             ),
         );
     }
