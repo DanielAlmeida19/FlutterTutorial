@@ -1,5 +1,6 @@
 // lib/main.dart
 import 'package:flutter/material.dart';
+import 'package:flutter_widgets_app/meu_contador.dart';
 
 void main(List<String> args) {
     runApp(const MeuApp());
@@ -13,42 +14,15 @@ class MeuApp extends StatelessWidget {
     // O método 'build' será chamado sempre que flutter precisar desenhar um widget
     @override
     Widget build(BuildContext context) {
-        // 1. MaterialApp: fornece a estrutura de design Material design
         return MaterialApp(
-            title: "App de Widgets",
-            // 2. Scaffold: é a estrutura básica de tela (cabeçalho, corpo, etc.) 
+            title: "Meu App de Contador",
+            theme: ThemeData(primarySwatch: Colors.green),
             home: Scaffold(
-                appBar: AppBar(
-                    title: Text("Layouts essenciais"),
-                    backgroundColor: Colors.teal,
+                appBar: AppBar(title: const Text("Contador Stateful"),),
+                // Usamos o StatefulWidget que acabamos de criar
+                body: const Center(
+                    child: MeuContador(),
                 ),
-                body: Column( // Começando a coluna principal
-                    // Alinha os itens na vertical (Main Axis)
-                    mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                    // Alinha os itens na horizontal (Cross Axis)
-                    crossAxisAlignment: CrossAxisAlignment.center,
-                    children: <Widget>[ // A lista de Widgets filhos
-                        const Text("Primeiro Item (Column)"),
-
-                        // Row aninhada (Layout horizontal)
-                        Row(
-                            mainAxisAlignment: MainAxisAlignment.spaceAround,
-                            children: const <Widget>[
-                                Icon(Icons.thumb_up, color: Colors.blue, size: 40,),
-                                Icon(Icons.star, color: Colors.amber, size: 40,),
-                                Icon(Icons.favorite, color: Colors.red, size: 40,),
-                            ],
-                        ),
-
-                        Container(
-                            height: 100,
-                            width: 100,
-                            color: Colors.purple,
-                            alignment: Alignment.center,
-                            child: const Text("Container!", style: TextStyle(color: Colors.white),),
-                        )
-                    ],
-                )
             ),
         );
     }
