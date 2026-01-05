@@ -1,6 +1,5 @@
 // lib/main.dart (classe MeuApp e PrimeiraTela)
 import 'package:flutter/material.dart';
-import 'segunda_tela.dart';
 
 void main(List<String> args) {
   return runApp(const MeuApp());
@@ -27,45 +26,35 @@ class PrimeiraTela extends StatefulWidget {
 }
 
 class _PrimeiraTelaState extends State<PrimeiraTela> {
-  String _resultado = "Nenhum dado de volta ainda";
+  // Lista de dados simulada (1000 nomes)
+  final List<String> nomes = List<String>.generate(1000, (i) => "Item $i");
   
-  // Função assíncrona para navegar e esperar o resultado
-  void _navegarParaSegundaTela() async {
-    // 1. Navegar (push) e aguardar (await)
-    final resultado = await Navigator.push(
-      context,
-      // MaterialPageRoute define a transição e a tela de destino
-      MaterialPageRoute(
-        builder: (context) => const SegundaTela(
-          mensagem: "Essa é uma mensagem enviada da primeira tela!",
-        )
-      )
-    );
-
-    // 3. Atualizar estado com o que veio do 'pop'
-    if (resultado != null) {
-      setState(() {
-        _resultado =resultado.toString();
-      });
-    }
-  }
-
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(title: const Text("Primeira Tela"),),
-      body: Center(
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: <Widget>[
-            Text("Resultado: $_resultado", style: const TextStyle(fontSize: 18),),
-            const SizedBox(height: 20,),
-            ElevatedButton(
-              onPressed: _navegarParaSegundaTela,
-              child: const Text("Ir para segunda tela") 
-            )
-          ],
-        ),
+      appBar: AppBar(title: const Text("Lista Eficiente (ListView.builder)"),),
+      // Substituindo o Body
+      body: ListView.builder(
+        // 1. itemCount: o número total de itens na lista
+        itemCount: nomes.length,
+        // 2. itemBuilder: A função chamada para construir cada item
+        // O index indica qual item deve ser construído (0, 1, 2, ...)
+        itemBuilder: (context, index) {
+          // O widget que representa cada linha da lista
+          return Card(
+            elevation: 3,
+            margin: const EdgeInsets.symmetric(vertical: 8, horizontal: 16),
+            child: ListTile(
+              leading: const Icon(Icons.person),
+              title: Text(nomes[index]),
+              subtitle: Text("Índice $index"),
+              onTap: () {
+                // Adicionar interatatividade a lista
+                print("Clicou no item ${nomes[index]}");
+              },
+            ),
+          );
+        },
       ),
     );
   }
